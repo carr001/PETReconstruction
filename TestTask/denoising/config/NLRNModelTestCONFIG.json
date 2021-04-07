@@ -1,0 +1,29 @@
+{
+    "data_config": {
+      "input_path": "H:\\HCX\\PETreconstruction36\\Projects2\\TestTask\\denoising\\data\\Set68",
+      "colorspace":"gray",
+      "patch_size":40,
+      "stride":40,
+      "gauss_sigma":50,
+      "normalization":true
+    },
+
+    "model_config":{
+      "model_name": "NLRNModel",
+      "net_config":{
+        "in_channels":1,
+        "out_channels":1,
+        "state_num":12
+      },
+
+     "end_epoch":60,
+     "pretrain_epoch":10,
+     "optimizer_str":"Adam",
+      "optimizer_parameters":{
+      },
+       "loss_func_str":"MSE",
+      "pretrain_path":"2021_3_15",
+      "save_model_path":"H:\\HCX\\PETreconstruction36\\Projects2\\TestTask\\denoising\\savedmodel\\NLRN",
+      "save_log_path":"H:\\HCX\\PETreconstruction36\\Projects2\\TestTask\\denoising\\log\\test\\NLRN"
+    }
+}

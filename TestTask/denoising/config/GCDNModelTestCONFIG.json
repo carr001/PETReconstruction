@@ -1,0 +1,33 @@
+{
+    "data_config": {
+      "input_path": "H:\\HCX\\PETreconstruction36\\Projects2\\TestTask\\denoising\\data\\Set68",
+      "colorspace":"gray",
+      "patch_size":40,
+      "stride":40,
+      "gauss_sigma":50,
+      "normalization":true
+    },
+
+    "model_config":{
+      "model_name": "GCDNModel",
+      "net_config":{
+        "nic": 1,
+        "nf": 18,
+        "iters": 2,
+        "window_size": 40,
+        "topK": 8,
+        "rank": 3,
+        "circ_rows": 3,
+        "leak": 0.2
+      },
+
+     "pretrain_epoch":30,
+     "optimizer_str":"Adam",
+      "optimizer_parameters":{
+      },
+        "metric_str":"psnr",
+      "pretrain_path":"2021_3_14",
+      "save_model_path":"H:\\HCX\\PETreconstruction36\\Projects2\\TestTask\\denoising\\savedmodel\\GCDN",
+      "save_log_path":"H:\\HCX\\PETreconstruction36\\Projects2\\TestTask\\denoising\\log\\test\\GCDN"
+    }
+}

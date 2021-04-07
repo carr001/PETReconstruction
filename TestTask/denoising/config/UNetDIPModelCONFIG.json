@@ -1,0 +1,52 @@
+{
+    "data_config": {
+      "input_path": "H:\\HCX\\PETreconstruction36\\Projects3\\TestTask\\denoising\\data\\Set12",
+      "shuffle":true,
+      "batch_size": 16,
+      "colorspace":"gray",
+      "patch_size":0,
+      "stride":10,
+      "gauss_sigma":25,
+      "normalization":true
+    },
+    "model_config":{
+      "model_name": "UNetDIPModel",
+      "net_config":{
+        "in_channels":1,
+        "out_channels":1,
+        "feature_scale":8,
+        "more_layers":1,
+        "concat_x":false,
+        "upsample_mode":"deconv",
+        "pad":"zero",
+         "need_sigmoid":true,
+         "need_bias":true
+      },
+      "logger_config":{
+        "log_frequency":10,
+        "metric_str":"psnr",
+        "logging_config":{
+           "save_log_path":"H:\\HCX\\PETreconstruction36\\Projects3\\TestTask\\denoising\\log\\test\\UNetDIP"
+        },
+        "writer_config":{
+       "save_log_path":"H:\\HCX\\PETreconstruction36\\Projects3\\TestTask\\denoising\\log\\test\\UNetDIP",
+        "writer_extra_str":"sigma=25"
+        }
+      },
+      "trainer_config":{
+        "save_frequency":10000
+      },
+      "tester_config":{
+        "metric_name":"psnr"
+      },
+     "pretrain_epoch":0,
+     "end_epoch":10000,
+      "optimizer_config":{
+        "optimizer_name":"Adam"
+      },
+      "sched_config":{
+      },
+      "loss_func_name":"MSE",
+      "save_model_path":"H:\\HCX\\PETreconstruction36\\Projects3\\TestTask\\denoising\\savedmodel\\UNetDIP"
+    }
+}

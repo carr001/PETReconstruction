@@ -1,0 +1,169 @@
+\documentclass{article}
+\usepackage{ctex}
+\usepackage{graphicx}
+\usepackage{underscore}
+
+\graphicspath{{figs/}}
+\begin{document}
+	\title{代码框架与实验记录}
+	\author{Carr}
+	\maketitle
+	
+	\newpage
+	\tableofcontents
+	
+	%\part{介绍}
+%	\chapter{介绍}
+	%\section{目录组织}
+	\newpage
+	\begin{abstract}
+		本文介绍代码框架和实验记录。对于实验记录，这个文件不记录实际的实验结果，按照时间顺序，记录实验结果的分析，以及其他的测试实验。
+	\end{abstract}
+
+	\newpage
+	\part{代码框架}
+	\section{书写原则}
+	当有一个新的模型进来，如果使用的数据相同，在搭建好网络之后，可以很快运行出结果。这个期间，数据集的参数设置不动，BaseModel不动,可能需要修改Model部分，但是在修改Model部分之后，我们就可以通过只调整json文件的参数来直接得到输出。
+	
+	
+	\section{代码书写}
+	书写原则：
+	1.方便调试;
+	2.提高可移植性;
+	3.可读性高
+	
+	每个模型的所有方法都提供外部接口，通过传参操作。所有的组合（composition）都使用节口，而不使用内部配置。
+	\subsection{函数书写}
+	代码中目录，目录名字单独写，不加双\，对于CONFIG中配置的目录，不写最后两个\
+	
+	\subsection{网络书写}
+	网络是一个接口，网络参数在模型中设定。
+	
+	由于不同网络的接口参数可能差别比较大，因此网络不封装，传递时在model中用__deconfig_net__进行解析。
+	
+	\subsection{模型书写}
+	模型中设定设定用户通过config的网络参数以及其他参数.
+	
+	\subsection{Data}
+
+	
+	\subsubsection{继承模型}
+	使用图\ref{inherit1}的继承模型，不使用图\ref{inherit2}的继承模型。
+	\begin{figure}[h]
+		%\centering
+		\centerline{\includegraphics[height=0.22\textheight,width=0.66\columnwidth]{inherit1}}
+		\caption{继承模型1}
+		\label{inherit1}
+	\end{figure}
+	\begin{figure}[h]
+		%\centering
+		\centerline{\includegraphics[height=0.22\textheight,width=0.66\columnwidth]{inherit2}}
+		\caption{继承模型2}
+		\label{inherit2}
+	\end{figure}
+	
+	原因：在net中super().__init__我们希望是nn.Module，而不是BaseModel
+	
+	\subsubsection{模型接口}
+	__deconfig_net__:解析config内容，便于传给net
+	
+	
+	
+	
+	\subsubsection{BaseModel}
+	由于很多模型的basemodel可以共用参数，参数可以封装，然后在basemodel里面进行解析。
+	
+	
+	\section{数据组织}
+	
+	\section{目录组织}
+	目录组织如图\ref{dirlayer}
+	
+	Models:实现各种模型
+	
+	TestTask:实现一些基本的算法，比如去噪，分割等，数据以及网络配置都在这里面
+			
+	Algorithms:实现其他算法，比如PET重建
+	
+	\begin{figure}[h]
+		%\centering
+		\centerline{\includegraphics[height=0.22\textheight,width=0.66\columnwidth]{dirlayer}}
+		\caption{目录组织}
+		\label{dirlayer}
+	\end{figure}
+
+	\section{命名规则}
+	\subsection{目录}
+	外层目录：首字母大写
+
+	其他目录：全部小写
+	\subsubsection{layers}
+		xxLayer, 其中xx是layer的名字,能够反映layer的基本成分
+		
+	\subsubsection{networks}
+		xxNet,其中，xx是网络的名字，论文中作者的命名
+	
+	\subsubsection{models}
+		xxModel,xx是模型的名字，与模型的功能相接
+		
+	\subsubsection{utils}
+		xxUtils,xx是layer或者net或者model
+
+	\subsection{.py文件}
+	第一个单词开头小写，剩余单词开头大写，比如graphCNNModel。
+	
+	习惯大写的词汇要大写，比如GNN，CNN，GAN。
+	\subsection{.json文件}
+	一般以XXCONFIG.json命名，其中XX表示使用的模型的名字
+	
+	\subsection{函数}
+	成员函数：
+	1.首字母小写，变量中间不用下划线，单词名字意思要表达完整，使用常用的表达习惯，一般每个单词长度在3-6个之间，如果比较长，考虑只用前四个字母；
+	2.单词省略原则，比如inputdata，省略data
+	3.经过简单处理后的同样的数据在意思明了的情况下，只需要在后面加_进行区分
+	4.习惯大写的词汇要小写，比如GNN，CNN，GAN。
+	
+	非成员函数：首字母大写，用下划线隔开
+	
+	
+	\subsection{变量}
+	非成员变量：
+	与成员函数命名规则相同
+	
+	成员变量：
+	与成员函数命名规则相同
+	
+	\subsection{配置文件}
+	命名规则与成员变量相同
+	
+	\subsection{简写表}
+	\begin{table}[h]
+		\centering
+		\begin{tabular}{|c|c|}
+			\hline
+			完整       & 简写    \\ \hline
+			gaussian  & guass \\ \hline
+		\end{tabular}
+	\end{table}
+		
+	
+	\newpage
+	\part{试验记录}
+	\section{2021年3月1日}
+	\subsection{10点50分}
+		\subsubsection{目的}
+			测试model与算法分离的框架是否可行
+		\subsubsection{结论}
+			利用python 将包的目录加载到sys.path中即可。
+	\section{2021年3月2日}
+	\subsection{14点34分}
+	\subsubsection{目的}
+		思考model， basemode和network应该怎样写
+	\subsubsection{思考过程}
+		DnCNNModel，包含网络，不对输入数据格式做要求，包含训练和测试。
+	\subsubsection{结论}
+		利用python 将包的目录加载到sys.path中即可。
+		
+	
+\end{document}	
+

@@ -1,0 +1,44 @@
+{
+    "totaliters":20,
+    "subiter1":2,
+    "subiter2":100,
+    "rho":1,
+    "pretrain_epoch":300,
+    "pretrain_iters":60,
+    "net_input":"mr",
+    "image_shape":[192,160],
+    "frame":22,
+    "realizations":10,
+    "model_config":{
+      "model_name": "UNetDIPModel",
+      "net_config":{
+        "n_channels":1,
+        "n_classes":1
+      },
+      "logger_config":{
+        "log_frequency":10,
+        "metric_str":"psnr",
+        "logging_config":{
+           "save_log_path":"H:\\HCX\\PETreconstruction36\\Projects3\\Algorithms\\PET2\\log\\UNetDIP"
+        },
+        "writer_config":{
+       "save_log_path":"H:\\HCX\\PETreconstruction36\\Projects3\\Algorithms\\PET2\\log\\UNetDIP",
+        "writer_extra_str":""
+        }
+      },
+      "trainer_config":{
+        "save_frequency":1000000
+      },
+      "tester_config":{
+        "metric_name":"psnr"
+      },
+     "pretrain_epoch":0,
+     "end_epoch":0,
+      "optimizer_config":{
+        "optimizer_name":"Adam"
+      },
+      "sched_config":{
+      },
+      "loss_func_name":"MSE"
+    }
+}

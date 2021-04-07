@@ -1,0 +1,54 @@
+{
+    "data_config": {
+      "input_path": "H:\\HCX\\PETreconstruction36\\Projects3\\TestTask\\denoising\\data\\train",
+      "shuffle":true,
+      "batch_size": 36,
+      "colorspace":"gray",
+      "horizontal_flip":true,
+      "vertical_flip":false,
+      "rotation_num":1,
+      "crop_size":40,
+      "crop_num":128,
+      "patch_size":40,
+      "stride":10,
+      "gauss_sigma":25,
+      "normalization":true
+    },
+    "model_config":{
+      "model_name": "GCDNModel",
+      "net_config":{
+        "nic": 1,
+        "nf": 18,
+        "iters": 2,
+        "window_size": 40,
+        "topK": 8,
+        "rank": 3,
+        "circ_rows": 3,
+        "leak": 0.2
+      },
+      "logger_config":{
+        "log_frequency":10,
+        "metric_str":"psnr",
+        "logging_config":{
+           "save_log_path":"H:\\HCX\\PETreconstruction36\\Projects3\\TestTask\\denoising\\log\\train\\DnCNN"
+        },
+        "writer_config":{
+       "save_log_path":"H:\\HCX\\PETreconstruction36\\Projects3\\TestTask\\denoising\\log\\train\\DnCNN",
+        "writer_extra_str":"patch=40_stride=10_sigma=25"
+        }
+      },
+      "trainer_config":{
+        "save_frequency":10
+      },
+     "pretrain_epoch":0,
+     "end_epoch":50,
+      "optimizer_config":{
+        "optimizer_name":"Adam"
+      },
+      "sched_config":{
+      },
+      "loss_func_name":"MSE",
+      "pretrain_path":"2021_3_7",
+      "save_model_path":"H:\\HCX\\PETreconstruction36\\Projects3\\TestTask\\denoising\\savedmodel\\GCDN"
+    }
+}
